@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Weissmaler Stats</title>
+        <title>Weissmaler Dashboard</title>
+        <link rel=stylesheet href='/static/style.css'>
     </head>
     <body>
-        {% block content %}
-        {% endblock %}
+        <div id='content'>
+            <h2>Weissmaler Dashboard</h2>
+            <h3>{{ current_date }}</h3>
+            <!-- <button><a href='/b2c'>B2C</a></button> -->
+            <button><a href='/b2b'>B2B</a></button>
+            {% block content %}
+            {% endblock %}
+        </div>
     </body>
 </html>

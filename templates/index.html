@@ -1,5 +1,11 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h3>This is the index page!</h3>
+    <p>This is the index page!</p>
+    <a href="/b2c">
+        <div class="home_b2c_button">B2C STATS</div>
+    </a>
+    <a href="/b2b">
+        <div class="home_b2b_button">B2B STATS</div>
+    </a>
 {% endblock %}

@@ -1,5 +1,25 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h3>This is the b2b page!</h3>
+    <table>
+        <tr>
+            <th class="head">Created</th>
+            <th class="head">Won</th>
+            <th class="head">Target</th>
+            <th class="head">Forecast</th>
+            <th class="head">Probability</th>
+        </tr>
+        <tr>
+            <!-- Created $ -->
+            <td class="cells">{{ 1000000.00 - values['total'] }} €</td>
+            <!-- Won $ -->
+            <td class="cells">{{ values['total'] }} €</td>
+            <!-- Target -->
+            <td class="cells">{{ 1000000.00 - values['total'] }} €</td>
+            <!-- Forecast $ -->
+            <td class="cells">1,000,000.00 €</td>
+            <!-- Probability $ -->
+            <td class="cells">89 %</td>
+        </tr>
+    </table>
 {% endblock %}

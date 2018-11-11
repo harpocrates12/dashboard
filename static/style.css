@@ -1,0 +1,92 @@
+body {
+    text-align: center;
+    width: 70%;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    padding: 20px;
+	background-color: white;
+	color: #60605f;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #09a44a;
+	font-weight: lighter;
+}
+
+h3 {
+    padding: 10px;
+	background-color: #09a44a;
+	color: white;
+	border-radius: 5px;
+	text-align: right;
+	font-weight: lighter;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #09a44a;
+}
+
+table {
+	height: 150px;
+	width: 70%;
+    max-width: 85%;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+}
+
+table .head {
+	background-color: #157bc0;
+	color: white;
+	padding: 5px;
+	height: 40px;
+	text-shadow: 2px 2px #333;
+	border-radius: 3px;
+}
+
+table .cells {
+	padding: 5px; 
+	border-radius: 3px; 
+	border-style: solid;
+	border-width: 2px; 
+	border-color: #888;
+}
+
+/* table .total {
+	padding: 5px;
+	background-color: #ededed;
+	border-radius: 5px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-width: 2px;
+	border-color: #09a44a;
+	font-weight: bold;
+} */
+
+.home_b2c_button {
+	background-color: lightgrey;
+	padding: 100px;
+	border-radius: 5px;
+	margin: 10px;
+	color: #333;
+	font-weight: bold;
+}
+
+.home_b2b_button {
+
+	background-color: #09a44a;;
+	padding: 100px;
+	border-radius: 5px;
+	margin: 10px;
+	color: #333;
+	font-weight: bold;
+}
