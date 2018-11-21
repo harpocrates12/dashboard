@@ -3,13 +3,40 @@
     <head>
         <title>Weissmaler Dashboard</title>
         <link rel=stylesheet href='/static/style.css'>
+        <script type="text/javascript">
+			function myfunc(){
+				x = document.getElementsByName("runrate");
+				for (var r = 0; r < x.length; r++){
+					var cell_content = x[r].innerHTML;
+					cell_content = cell_content.substring(0,cell_content.indexOf("%")-1);
+					console.log(cell_content);
+					if (cell_content){
+						if (cell_content >= 100){
+							x[r].style.backgroundColor = "#A9F5A9";
+						}
+						else if (cell_content >= 50){
+							x[r].style.backgroundColor = "#F3F781";
+						}
+						else {
+							x[r].style.backgroundColor = "#F5A9A9"
+						}
+					}
+					else{
+						x[r].style.backgroundColor = "#CEE3F6";
+					}
+				}
+			};
+			setTimeout(function()
+				{window.location.reload();},
+				 30000);
+		</script>
     </head>
     <body>
         <div id='content'>
             <h2>Weissmaler Dashboard</h2>
             <h3>{{ current_date }}</h3>
             <!-- <button><a href='/b2c'>B2C</a></button> -->
-            <button><a href='/b2b'>B2B</a></button>
+            <!-- <button><a href='/b2b'>B2B</a></button> -->
             {% block content %}
             {% endblock %}
         </div>

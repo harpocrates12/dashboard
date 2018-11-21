@@ -3,8 +3,7 @@ from urllib.request import urlopen
 
 from code import interact
 
-
-def full_url(department):
+def full_url(department, start):
     api_host = os.environ.get('PD_API_HOST')
     api_token = os.environ.get('PD_API_TOKEN')
 
@@ -14,16 +13,16 @@ def full_url(department):
         filter_id = os.environ.get('PD_B2B_DEALS_FILTER_ID')
 
     entity = 'deals'
-    relevant_attrs = '(user_id,value,won_time)'
+    relevant_attrs = '(user_id,value,status,won_time,add_time,expected_close_date,probability)'
 
-    url = api_host + '/' + entity + ':' + relevant_attrs + '?filter_id=' + filter_id + '&status=all_not_deleted' + '&api_token=' + api_token
+    url = api_host + '/' + entity + ':' + relevant_attrs + '?filter_id=' + filter_id + '&status=all_not_deleted' + '&start=' + str(start) + '&api_token=' + api_token
 
     return url
 
-def fetch_deals(department):
+def fetch_deals(department, start):
     try:
         deal_response = urlopen(
-            full_url(department)
+            full_url(department, start)
         )
     except Exception as e:
         deal_response = None

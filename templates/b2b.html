@@ -7,19 +7,16 @@
             <th class="head">Won</th>
             <th class="head">Target</th>
             <th class="head">Forecast</th>
-            <th class="head">Probability</th>
         </tr>
         <tr>
             <!-- Created $ -->
-            <td class="cells">{{ 1000000.00 - values['total'] }} €</td>
+            <td class="cells">{{'{0:,} €'.format(values['total_created']).replace(',','.')}}</td>
             <!-- Won $ -->
-            <td class="cells">{{ values['total'] }} €</td>
+            <td class="cells">{{'{0:,} €'.format(values['total_won']).replace(',','.')}}</td>
             <!-- Target -->
-            <td class="cells">{{ 1000000.00 - values['total'] }} €</td>
+            <td class="cells">{{'{0:,} €'.format(values['total_target']).replace(',','.')}}</td>
             <!-- Forecast $ -->
-            <td class="cells">1,000,000.00 €</td>
-            <!-- Probability $ -->
-            <td class="cells">89 %</td>
+            <td class="cells">{{'{0:,} €'.format(values['forecast']).replace(',','.')}}</td>
         </tr>
     </table>
 {% endblock %}
