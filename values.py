@@ -3,7 +3,7 @@ import json
 from pipedrive_adapter import fetch_deals
 from datetime import datetime
 
-# from code import interact
+from code import interact
 
 def normalize_values(values):
     result = {
@@ -15,15 +15,15 @@ def normalize_values(values):
     for vals in values:
         for e in vals['data']:
             # interact(local=dict(globals(), **locals()))
-            if is_current_year_and_month(e['add_time']):
+            if is_month(e['add_time'], 'current'):
                 result['total_created'] += e['value']
     
             if e['status'] == 'won':
-                if is_current_year_and_month(e['won_time']):
+                if is_month(e['won_time'], 'current'):
                     result['total_won'] += e['value']
     
             elif e['status'] == 'open' and e['expected_close_date'] != None:
-                if is_current_year_and_month(e['expected_close_date']):
+                if is_month(e['expected_close_date'], 'current'):
                     result['total_expected'] += (e['value'] * (e['probability'] or 0.1))
     return result
 
@@ -54,15 +54,29 @@ def calculate_stats(**kwargs):
 
     return values
 
-def is_current_month(date_string):
-    current_month = str(datetime.today().month)
+def is_month(date_string, expected_month):
+    expected_month_mapping = {
+        'current' : 0,
+        'following' : 1,
+        'previous' : -1,
+    }
 
-    return date_string.split(' ')[0].split('-')[1] == current_month
+    current_year = datetime.today().year
 
-def is_current_year(date_string):
-    current_year = str(datetime.today().year)
+    # interact(local=dict(globals(), **locals()))
 
-    return date_string.split(' ')[0].split('-')[0] == current_year
+    following_month = get_month_string(expected_month_mapping[expected_month])
+    following_year = str(current_year + expected_month_mapping[expected_month])
 
-def is_current_year_and_month(date_string):
-    return is_current_year(date_string) and is_current_month(date_string)
+    year, month, _day = date_string.split(' ')[0].split('-')
+
+    return year == following_year and month == following_month
+
+def get_month_string(expected_month_factor):
+    months = [i for i in range(1,13)]
+
+    current_month = datetime.today().month
+    current_month_index = months.index(current_month)
+    expected_month = months[current_month_index + expected_month_factor]
+    
+    return str(expected_month)
