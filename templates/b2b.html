@@ -3,20 +3,25 @@
 {% block content %}
     <table>
         <tr>
+            <th class="head">Month</th>
             <th class="head">Created</th>
             <th class="head">Won</th>
             <th class="head">Target</th>
             <th class="head">Expected</th>
         </tr>
-        <tr>
-            <!-- Created $ -->
-            <td class="cells">{{'{0:,} €'.format(values['total_created']).replace(',','.')}}</td>
-            <!-- Won $ -->
-            <td class="cells">{{'{0:,} €'.format(values['total_won']).replace(',','.')}}</td>
-            <!-- Target -->
-            <td class="cells">{{'{0:,} €'.format(values['total_target']).replace(',','.')}}</td>
-            <!-- Expected $ -->
-            <td class="cells">{{'{0:,} €'.format(values['total_expected']).replace(',','.')}}</td>
-        </tr>
+        {% for val in values %}
+            <tr>
+                <!-- Month $ -->
+                <td class="cells">{{ val }}</td>
+                <!-- Created $ -->
+                <td class="cells">{{'{0:,} €'.format(values[val]['total_created']).replace(',','.')}}</td>
+                <!-- Won $ -->
+                <td class="cells">{{'{0:,} €'.format(values[val]['total_won']).replace(',','.')}}</td>
+                <!-- Target -->
+                <td class="cells">{{'{0:,} €'.format(values[val]['total_target']).replace(',','.')}}</td>
+                <!-- Expected $ -->
+                <td class="cells">{{'{0:,} €'.format(values[val]['total_expected']).replace(',','.')}}</td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}

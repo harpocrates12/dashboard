@@ -7,24 +7,60 @@ from code import interact
 
 def normalize_values(values):
     result = {
-        'total_created' : 0.0,
-        'total_won' : 0.0,
-        'total_target' : 768000.00,
-        'total_expected' : 0.0,
+        'a-previous' : {
+            'total_created' : 0.0,
+            'total_won' : 0.0,
+            'total_target' : 768000.00,
+            'total_expected' : 0.0,
+        },
+        'b-current' : {
+            'total_created' : 0.0,
+            'total_won' : 0.0,
+            'total_target' : 768000.00,
+            'total_expected' : 0.0,
+        },
+        'c-following' : {
+            'total_created' : 0.0,
+            'total_won' : 0.0,
+            'total_target' : 768000.00,
+            'total_expected' : 0.0,
+        }
     }
     for vals in values:
         for e in vals['data']:
+# ===================================================================================================
+# PREVIOUS MONTH
             # interact(local=dict(globals(), **locals()))
-            if is_month(e['add_time'], 'current'):
-                result['total_created'] += e['value']
+            if is_month(e['add_time'], 'a-previous'):
+                result['a-previous']['total_created'] += e['value']
     
             if e['status'] == 'won':
-                if is_month(e['won_time'], 'current'):
-                    result['total_won'] += e['value']
+                if is_month(e['won_time'], 'a-previous'):
+                    result['a-previous']['total_won'] += e['value']
+# ===================================================================================================
+# CURRENT MONTH
+            if is_month(e['add_time'], 'b-current'):
+                result['b-current']['total_created'] += e['value']
     
-            elif e['status'] == 'open' and e['expected_close_date'] != None:
-                if is_month(e['expected_close_date'], 'current'):
-                    result['total_expected'] += (e['value'] * (e['probability'] or 0.1))
+            if e['status'] == 'won':
+                if is_month(e['won_time'], 'b-current'):
+                    result['b-current']['total_won'] += e['value']
+    
+            if e['status'] == 'open' and e['expected_close_date'] != None:
+                if is_month(e['expected_close_date'], 'b-current'):
+                    result['b-current']['total_expected'] += (e['value'] * (e['probability'] or 0.1))
+# ===================================================================================================
+# FOLLOWING MONTH
+            if is_month(e['add_time'], 'c-following'):
+                result['c-following']['total_created'] += e['value']
+    
+            if e['status'] == 'won':
+                if is_month(e['won_time'], 'c-following'):
+                    result['c-following']['total_won'] += e['value']
+    
+            if e['status'] == 'open' and e['expected_close_date'] != None:
+                if is_month(e['expected_close_date'], 'c-following'):
+                    result['c-following']['total_expected'] += (e['value'] * (e['probability'] or 0.1))
     return result
 
 def stats(department):
@@ -56,21 +92,24 @@ def calculate_stats(**kwargs):
 
 def is_month(date_string, expected_month):
     expected_month_mapping = {
-        'current' : 0,
-        'following' : 1,
-        'previous' : -1,
+        'b-current' : 0,
+        'c-following' : 1,
+        'a-previous' : -1,
     }
 
     current_year = datetime.today().year
 
     # interact(local=dict(globals(), **locals()))
 
-    following_month = get_month_string(expected_month_mapping[expected_month])
-    following_year = str(current_year + expected_month_mapping[expected_month])
+    requested_month = get_month_string(expected_month_mapping[expected_month])
+    if expected_month == 'a-previous' and get_month_string(expected_month_mapping['b-current']) == "1":
+        requested_year = str(current_year + expected_month_mapping[expected_month])
+    else:
+        requested_year = str(current_year)
 
     year, month, _day = date_string.split(' ')[0].split('-')
 
-    return year == following_year and month == following_month
+    return year == requested_year and month == requested_month
 
 def get_month_string(expected_month_factor):
     months = [i for i in range(1,13)]

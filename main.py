@@ -27,9 +27,13 @@ def b2b():
     current_date = datetime.today().strftime("%d.%m.%Y")
 
     values = calculate_stats(department = 'b2b')
-    values['total_created'] = round(values['total_created'], 2)
-    values['total_won'] = round(values['total_won'], 2)
-    values['total_expected'] = round(values['total_expected'], 2)
+    for val in values:
+        values[val]['total_created'] = round(values[val]['total_created'], 2)
+        values[val]['total_won'] = round(values[val]['total_won'], 2)
+        values[val]['total_expected'] = round(values[val]['total_expected'], 2)
+
+    # values = sorted(values.items(), key = lambda t: t[1])
+    values = dict(sorted(values.items()))
 
     return render_template('b2b.html', values = values, current_date = current_date)
 
