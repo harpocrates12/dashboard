@@ -29,7 +29,7 @@ def b2b():
     values = calculate_stats(department = 'b2b')
     values['total_created'] = round(values['total_created'], 2)
     values['total_won'] = round(values['total_won'], 2)
-    values['forecast'] = round(values['forecast'], 2)
+    values['total_expected'] = round(values['total_expected'], 2)
 
     return render_template('b2b.html', values = values, current_date = current_date)
 

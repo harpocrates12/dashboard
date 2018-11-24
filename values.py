@@ -10,7 +10,7 @@ def normalize_values(values):
         'total_created' : 0.0,
         'total_won' : 0.0,
         'total_target' : 768000.00,
-        'forecast' : 0.0,
+        'total_expected' : 0.0,
     }
     for vals in values:
         for e in vals['data']:
@@ -24,7 +24,7 @@ def normalize_values(values):
     
             elif e['status'] == 'open' and e['expected_close_date'] != None:
                 if is_current_year_and_month(e['expected_close_date']):
-                    result['forecast'] += (e['value'] * (e['probability'] or 0.1))
+                    result['total_expected'] += (e['value'] * (e['probability'] or 0.1))
     return result
 
 def stats(department):

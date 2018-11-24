@@ -6,7 +6,7 @@
             <th class="head">Created</th>
             <th class="head">Won</th>
             <th class="head">Target</th>
-            <th class="head">Forecast</th>
+            <th class="head">Expected</th>
         </tr>
         <tr>
             <!-- Created $ -->
@@ -15,8 +15,8 @@
             <td class="cells">{{'{0:,} €'.format(values['total_won']).replace(',','.')}}</td>
             <!-- Target -->
             <td class="cells">{{'{0:,} €'.format(values['total_target']).replace(',','.')}}</td>
-            <!-- Forecast $ -->
-            <td class="cells">{{'{0:,} €'.format(values['forecast']).replace(',','.')}}</td>
+            <!-- Expected $ -->
+            <td class="cells">{{'{0:,} €'.format(values['total_expected']).replace(',','.')}}</td>
         </tr>
     </table>
 {% endblock %}
