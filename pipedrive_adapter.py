@@ -13,7 +13,8 @@ def full_url(department, start):
         filter_id = os.environ.get('PD_B2B_DEALS_FILTER_ID')
 
     entity = 'deals'
-    relevant_attrs = '(user_id,value,status,won_time,add_time,expected_close_date,probability)'
+    pd_probability_key = 'cb7ce7922d9146c1fc9bca28bb8fcc9b91f2ebc0'
+    relevant_attrs = '(user_id,value,status,won_time,add_time,expected_close_date,%s)' % pd_probability_key
 
     url = api_host + '/' + entity + ':' + relevant_attrs + '?filter_id=' + filter_id + '&status=all_not_deleted' + '&start=' + str(start) + '&api_token=' + api_token
 

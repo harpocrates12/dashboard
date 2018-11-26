@@ -2,10 +2,12 @@ import json
 
 from pipedrive_adapter import fetch_deals
 from datetime import datetime
+from constants import pd_keys
 
 from code import interact
 
 def normalize_values(values):
+    pd_probability_key = pd_keys['probability']
     result = {
         'aaa' : {
             'total_created' : 0.0,
@@ -33,7 +35,7 @@ def normalize_values(values):
             # interact(local=dict(globals(), **locals()))
             if is_month(e['add_time'], 'aaa'):
                 result['aaa']['total_created'] += e['value']
-    
+
             if e['status'] == 'won':
                 if is_month(e['won_time'], 'aaa'):
                     result['aaa']['total_won'] += e['value']
@@ -41,26 +43,27 @@ def normalize_values(values):
 # CURRENT MONTH
             if is_month(e['add_time'], 'bbb'):
                 result['bbb']['total_created'] += e['value']
-    
+
             if e['status'] == 'won':
                 if is_month(e['won_time'], 'bbb'):
                     result['bbb']['total_won'] += e['value']
-    
+
             if e['status'] == 'open' and e['expected_close_date'] != None:
+                # interact(local=dict(globals(), **locals()))
                 if is_month(e['expected_close_date'], 'bbb'):
-                    result['bbb']['total_expected'] += (e['value'] * (e['probability'] or 0.1))
+                    result['bbb']['total_expected'] += (e['value'] * ((e[pd_probability_key] or 10) / 100.00))
 # ===================================================================================================
 # FOLLOWING MONTH
             if is_month(e['add_time'], 'ccc'):
                 result['ccc']['total_created'] += e['value']
-    
+
             if e['status'] == 'won':
                 if is_month(e['won_time'], 'ccc'):
                     result['ccc']['total_won'] += e['value']
-    
+
             if e['status'] == 'open' and e['expected_close_date'] != None:
                 if is_month(e['expected_close_date'], 'ccc'):
-                    result['ccc']['total_expected'] += (e['value'] * (e['probability'] or 0.1))
+                    result['ccc']['total_expected'] += (e['value'] * ((e[pd_probability_key] or 10) / 100.00))
     return result
 
 def stats(department):
