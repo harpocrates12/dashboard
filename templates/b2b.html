@@ -3,15 +3,15 @@
 {% block content %}
     <table>
         <tr>
-            <th class="head">Month</th>
-            <th class="head">Created</th>
-            <th class="head">Won</th>
-            <th class="head">Target</th>
-            <th class="head">Expected</th>
+            <th class="head">Monat</th>
+            <th class="head">Generiert</th>
+            <th class="head">Gewonnen</th>
+            <th class="head">Ziel</th>
+            <th class="head">Erwartet</th>
         </tr>
         <tr>
                 <!-- Month $ -->
-                <td class="cells">Oktober</td>
+                <td class="cells">{{ months['previous'] }}</td>
                 <!-- Created $ -->
                 <td class="cells">{{'{0:,} €'.format(values['aaa']['total_created']).replace(',','.')}}</td>
                 <!-- Won $ -->
@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <!-- Month $ -->
-                <td class="cells">November</td>
+                <td class="cells">{{ months['current'] }}</td>
                 <!-- Created $ -->
                 <td class="cells">{{'{0:,} €'.format(values['bbb']['total_created']).replace(',','.')}}</td>
                 <!-- Won $ -->
@@ -35,7 +35,7 @@
             </tr>
         <tr>
                 <!-- Month $ -->
-                <td class="cells">Dezember</td>
+                <td class="cells">{{ months['following'] }}</td>
                 <!-- Created $ -->
                 <td class="cells">{{'{0:,} €'.format(values['ccc']['total_created']).replace(',','.')}}</td>
                 <!-- Won $ -->

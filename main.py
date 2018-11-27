@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from values import calculate_stats
 from datetime import datetime
+from constants import month_names
 
 app = Flask(__name__)
 
@@ -26,6 +27,16 @@ app = Flask(__name__)
 def b2b():
     current_date = datetime.today().strftime("%d.%m.%Y")
 
+    current_month_key = int(datetime.today().month)
+    previous_month_key = current_month_key - 1
+    following_month_key = 1 if current_month_key == len(month_names) else current_month_key + 1
+
+    months = {
+        'previous'  : month_names[previous_month_key],
+        'current'   : month_names[current_month_key],
+        'following' : month_names[following_month_key]
+    }
+
     values = calculate_stats(department = 'b2b')
     for val in values:
         values[val]['total_created'] = round(values[val]['total_created'], 2)
@@ -35,7 +46,7 @@ def b2b():
     # values = sorted(values.items(), key = lambda t: t[1])
     values = dict(sorted(values.items()))
 
-    return render_template('b2b.html', values = values, current_date = current_date)
+    return render_template('b2b.html', values = values, current_date = current_date, months = months)
 
 if __name__ == '__main__':
     app.run(debug=True)
