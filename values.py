@@ -119,6 +119,10 @@ def get_month_string(expected_month_factor):
 
     current_month = datetime.today().month
     current_month_index = months.index(current_month)
-    expected_month = months[current_month_index + expected_month_factor]
+
+    if current_month_index == 11 and expected_month_factor == 1:
+        expected_month = months[0]
+    else:
+        expected_month = months[current_month_index + expected_month_factor]
     
     return str(expected_month)
